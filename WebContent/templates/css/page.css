@@ -1,0 +1,26 @@
+.mt-2 {
+	margin-top: 2px;
+}
+
+.mr-10 {
+	margin-right: 10px;
+}
+
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.login-form {
+	display: block;
+	margin-top: 150px;
+	width: 100%;
+	padding: 20px;
+}
+
+.btn-login {
+	margin-bottom: 20px;
+}
+
+/*ooooooooooooooooo*/
+
