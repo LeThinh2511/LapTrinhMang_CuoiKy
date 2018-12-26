@@ -12,20 +12,23 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-centered login-form border-primary">
-				<form action="<%=request.getContextPath() %>/login" method="POST">
-					<h1 class="bg-dark text-white">Log In</h1>
+				<form action="<%=request.getContextPath()%>/login" method="POST">
 					<fieldset>
 						<legend></legend>
 						<div class="form-group">
-							<label for="username">User name</label> <input
-								type="text" class="form-control" id="username" name="username"
+							<label for="username">User name</label> <input type="text"
+								class="form-control" id="username" name="username"
 								aria-describedby="emailHelp">
 						</div>
 						<div class="form-group">
-							<label for="password">Password</label> <input
-								type="password" class="form-control" id="password" name="password">
+							<label for="password">Password</label> <input type="password"
+								class="form-control" id="password" name="password">
 						</div>
-						<button type="submit" class="btn btn-dark btn-login">Log In</button>
+						<div class="col-sm-12">
+							<div class="text-center">
+								<button type="submit" class="btn btn-primary btn-login">Log In</button>
+							</div>
+						</div>
 					</fieldset>
 				</form>
 			</div>

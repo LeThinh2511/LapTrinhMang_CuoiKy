@@ -32,15 +32,14 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		
 		User user = userDAO.getItem(username, password);
-		System.out.println(user != null);
 		if(user != null) {
 			request.getSession().setAttribute("user", user);
-			response.sendRedirect("index.jsp");
+			request.getRequestDispatcher("/bookList").forward(request, response);
+		} else {
+			response.sendRedirect("Login.jsp");
 		}
 	}
 

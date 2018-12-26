@@ -34,13 +34,11 @@ public class ModifyBookController extends HttpServlet {
 			response.sendRedirect("Login.jsp");
 			return;
 		}
-		System.out.println("modify book controller");
 		if (request.getParameter("id") != null) {
 			int id = Integer.parseInt(request.getParameter("id"));
 			Book book = bookDAO.getItem(id);
 			request.setAttribute("book", book);
-			request.getRequestDispatcher("ModifyBook.jsp").forward(request,
-					response);
+			request.getRequestDispatcher("ModifyBook.jsp").forward(request, response);
 		}
 	}
 
@@ -50,15 +48,12 @@ public class ModifyBookController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("html");
-		System.out.println("modify book controller");
 		int idBook = Integer.parseInt(request.getParameter("idBook"));
 		String name = request.getParameter("name");
-
 		Book book = bookDAO.getItem(idBook);
 		if (book != null) {
 			book.setName(name);
 			bookDAO.editItem(book);
-
 			response.sendRedirect(request.getContextPath() + "/bookList");
 		}
 	}

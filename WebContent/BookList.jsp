@@ -1,4 +1,5 @@
 <%@page import="model.bean.Book"%>
+<%@page import="model.bean.User" %>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -12,11 +13,20 @@
 <link rel="stylesheet" href="templates/css/bootstrap.min.css">
 <link rel="stylesheet" href="templates/css/page.css">
 <script src="templates/js/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
+	<%
+		User user = (User) session.getAttribute("user");
+		if (user == null) {
+			response.sendRedirect("Login.jsp");
+		}
+	%>
 	<%
 		// set table
 		ArrayList<Book> books = (ArrayList<Book>) request.getAttribute("books");
@@ -24,32 +34,32 @@
 		int totals = 8;
 		if (request.getAttribute("totals") != null)
 			totals = Integer.parseInt((String) request.getAttribute("totals"));
-
 		try {
 			start = Integer.parseInt(request.getParameter("page"));
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
-		// check search
 		String key = request.getParameter("key") != null ? request.getParameter("key") : "";
 	%>
 	<div class="container">
 		<jsp:include page="templates/inc/headerbar.jsp"></jsp:include>
 		<div class="page">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a style="color: black;" class="nav-link" href="<%=request.getContextPath()%>/bookList">Book List</a></li>
+				<li class="breadcrumb-item"><a style="color: black;"
+					class="nav-link" href="<%=request.getContextPath()%>/bookList">Book
+						List</a></li>
 			</ol>
 		</div>
 
 		<div class="row">
-			<div class="col-lg-4 col-md-5 col-sm-6">
-			</div>
+			<div class="col-lg-4 col-md-5 col-sm-6"></div>
 		</div>
-			<div class="row mt-2">
-			
+		<div class="row mt-2">
+
 			<div class="col-md-6 col-6 col-sm-6">
-				<form class="input-group" method="get" action="<%=request.getContextPath()%>/bookList">
-					<input class="form-control" type="text" placeholder="Enter book name..." value="<%=key%>" name="key">
+				<form class="input-group" method="get"
+					action="<%=request.getContextPath()%>/bookList">
+					<input class="form-control" type="text"
+						placeholder="Enter book name..." value="<%=key%>" name="key">
 					<span class="input-group-btn mr-10">
 						<button class="btn btn-dark" type="submit">Search</button>
 					</span>
@@ -57,12 +67,12 @@
 			</div>
 			<div class="col-md-6 col-6 col-sm-6">
 				<div class="input-group">
-					<span class="input-group-btn mr-10">
-						<a class="btn btn-dark" href="<%=request.getContextPath()%>/addNewBook">Add new Book</a>
+					<span class="input-group-btn mr-10"> <a class="btn btn-dark"
+						href="<%=request.getContextPath()%>/addNewBook">Add new Book</a>
 					</span>
 				</div>
 			</div>
-			
+
 		</div>
 		<div class="mt-2">
 			<table class="table table-borderless">
@@ -82,9 +92,13 @@
 						<td><%=book.getIdBook()%></td>
 						<td><%=book.getName()%></td>
 						<td><%=book.getDateAdded()%></td>
-						<td><a href="<%=request.getContextPath()%>/modifyBook?id=<%=book.getIdBook()%>" class="btn btn-info  btn-dark sbold uppercase"> Modify </a> 
-							<a href="javascript:void(0)" data-id=<%=book.getIdBook()%> class="btn btn-danger btn-outline sbold uppercase deleteBook"> Delete </a></td>
-					
+						<td><a
+							href="<%=request.getContextPath()%>/modifyBook?id=<%=book.getIdBook()%>"
+							class="btn btn-info  btn-dark sbold uppercase"> Modify </a> <a
+							href="javascript:void(0)" data-id=<%=book.getIdBook()%>
+							class="btn btn-danger btn-outline sbold uppercase deleteBook">
+								Delete </a></td>
+
 					</tr>
 					<%
 						}
@@ -104,22 +118,22 @@
 		    	$.ajax({
 		            type:"POST",
 		            dataType:"json",
-		            url: "<%=request.getContextPath()%>" + "/deleteBook",
-		            data: {
-		            	id: $(this).data("id") 
-		            },
-		            success: function () {
-		            	alert("Delete Successfully!");
-		            	$(this).closest('tr').remove();
-		            }
-		            	
-		        });
-		    	$(this).closest('tr').remove();
-		    }
-		    
-		    return false;
+		            url: "<%=request.getContextPath()%>
+	" + "/deleteBook",
+					data : {
+						id : $(this).data("id")
+					},
+					success : function() {
+						alert("Delete Successfully!");
+						$(this).closest('tr').remove();
+					}
+
+				});
+				$(this).closest('tr').remove();
+			}
+
+			return false;
 		});
 	})
-	
-</script> 
+</script>
 </html>

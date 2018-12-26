@@ -140,7 +140,7 @@ public class BookDAO {
 
 
 	public Book getItem(int id){
-		Book book =new Book();
+		Book book = new Book();
 		conn = DatabaseManager.getConnection();
 		String sql = "SELECT * FROM Book WHERE idBook = ?";			
 		try {
@@ -237,14 +237,5 @@ public int addItem(Book book) {
 		}
 		
 		return kq;
-	}
-
-	public static void main(String[] args) {
-		
-		BookDAO tmp = new BookDAO();
-		System.out.println(tmp.countTotal(""));
-		for (Book item : tmp.getList("", 0, 5)) {
-			System.out.println(item.getName());
-		}
 	}
 }

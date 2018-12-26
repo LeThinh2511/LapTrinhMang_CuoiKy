@@ -67,10 +67,4 @@ public class UserDAO {
 
 		return null;
 	}
-	
-	public static void main(String[] args) {
-		UserDAO dao = new UserDAO();
-		User u = dao.getItem("lethinh@gmail.com", "lethinh");
-		System.out.println(u.getEmail());
-	}
 }

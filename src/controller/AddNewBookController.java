@@ -36,7 +36,6 @@ public class AddNewBookController extends HttpServlet {
 			response.sendRedirect("Login.jsp");
 			return;
 		}
-		System.out.println("Add new book controller");
 		request.getRequestDispatcher("AddNewBook.jsp").forward(request, response);
 	}
 
@@ -46,13 +45,11 @@ public class AddNewBookController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("html");
-		
 		String name = request.getParameter("name");
 		Book newBook = new Book();
 		newBook.setName(name);
 		newBook.setDateAdded(new Date(System.currentTimeMillis()));
 		bookDAO.addItem(newBook);
-		System.out.println("Add new book controller");
 		response.sendRedirect(request.getContextPath() + "/bookList");
 	}
 

@@ -36,7 +36,6 @@ public class LogoutController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		
 		request.getSession().removeAttribute("user");
 		response.sendRedirect("Login.jsp");	
 		return;
