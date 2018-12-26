@@ -28,15 +28,10 @@
 		}
 	%>
 	<%
-		// set table
 		ArrayList<Book> books = (ArrayList<Book>) request.getAttribute("books");
-		int start = 0;
-		int totals = 8;
-		if (request.getAttribute("totals") != null)
+		int totals = 0;
+		if (request.getAttribute("totals") != null) {
 			totals = Integer.parseInt((String) request.getAttribute("totals"));
-		try {
-			start = Integer.parseInt(request.getParameter("page"));
-		} catch (Exception e) {
 		}
 		String key = request.getParameter("key") != null ? request.getParameter("key") : "";
 	%>
@@ -118,8 +113,7 @@
 		    	$.ajax({
 		            type:"POST",
 		            dataType:"json",
-		            url: "<%=request.getContextPath()%>
-	" + "/deleteBook",
+		            url: "<%=request.getContextPath()%>" + "/deleteBook",
 					data : {
 						id : $(this).data("id")
 					},

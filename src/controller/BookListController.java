@@ -35,18 +35,13 @@ public class BookListController extends HttpServlet {
 			response.sendRedirect("Login.jsp");
 			return;
 		}
-		int page = 0;
 		BookDAO bookDAO = new BookDAO();
 		String key = request.getParameter("key");
 		if (key == null) {
 			key = "";
 		}
 		int totals = bookDAO.countTotal(key);
-		try {
-			page = Integer.parseInt(request.getParameter("page"));
-		} catch (Exception e) {
-		}
-		ArrayList<Book> books = bookDAO.getList(key, page * 5, 5);
+		ArrayList<Book> books = bookDAO.getList(key);
 		request.setAttribute("totals", String.valueOf(totals));
 		request.setAttribute("books", books);
 		request.getRequestDispatcher("BookList.jsp").forward(request, response);

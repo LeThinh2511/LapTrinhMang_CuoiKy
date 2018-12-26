@@ -17,18 +17,18 @@ public class BookDAO {
 	private Statement st;
 	private PreparedStatement pst;
 	private ResultSet rs;
- 
-	public int countTotal(String key){
-		if(key == null)
+
+	public int countTotal(String key) {
+		if (key == null)
 			key = "";
 		int result = 0;
 		conn = DatabaseManager.getConnection();
-		String sql = "SELECT count(*) FROM BOOK WHERE name like ?";			
+		String sql = "SELECT count(*) FROM BOOK WHERE name like ?";
 		try {
 			pst = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			pst.setString(1, "%" + key + "%");
 			rs = pst.executeQuery();
-		
+
 			while (rs.next()) {
 				result = rs.getInt(1);
 			}
@@ -46,19 +46,16 @@ public class BookDAO {
 		}
 		return result;
 	}
-	
-	public ArrayList<Book> getList() {						
-		ArrayList<Book> result = new ArrayList<>();				
+
+	public ArrayList<Book> getList() {
+		ArrayList<Book> result = new ArrayList<>();
 		conn = DatabaseManager.getConnection();
-		String sql = "SELECT * FROM Book";					
+		String sql = "SELECT * FROM Book";
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				Book book = new Book(					
-						rs.getInt("idBook"), 				
-						rs.getString("name"),			
-						rs.getDate("dateAdded"));
+				Book book = new Book(rs.getInt("idBook"), rs.getString("name"), rs.getDate("dateAdded"));
 				result.add(book);
 			}
 		} catch (SQLException ex) {
@@ -76,21 +73,16 @@ public class BookDAO {
 		return result;
 	}
 
-	public ArrayList<Book> getList(String key, int start, int end) {			
+	public ArrayList<Book> getList(String key) {
 		ArrayList<Book> result = new ArrayList<>();
 		conn = DatabaseManager.getConnection();
-		String sql = "SELECT * FROM Book WHERE name like ? LIMIT ?,?";	
+		String sql = "SELECT * FROM Book WHERE name like ?";
 		try {
 			pst = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			pst.setString(1, "%" + key + "%");
-			pst.setInt(2, start);
-			pst.setInt(3, end);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Book book = new Book(					
-						rs.getInt("idBook"), 				
-						rs.getString("name"),			
-						rs.getDate("dateAdded"));				
+				Book book = new Book(rs.getInt("idBook"), rs.getString("name"), rs.getDate("dateAdded"));
 				result.add(book);
 			}
 			rs.close();
@@ -108,50 +100,16 @@ public class BookDAO {
 		return result;
 	}
 
-	public ArrayList<Book> getList(String key) {
-		ArrayList<Book> result = new ArrayList<>();				
-		conn = DatabaseManager.getConnection();
-		String sql = "SELECT * FROM Book WHERE name like ?";			
-		try {
-			pst = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-			pst.setString(1, "%" + key + "%");
-			rs = pst.executeQuery();
-			while (rs.next()) {
-				Book book = new Book(
-						rs.getInt("idBook"), 				
-						rs.getString("name"),			
-						rs.getDate("dateAdded"));				
-				result.add(book);
-			}
-			rs.close();
-			pst.close();
-		} catch (SQLException ex) {
-			ex.printStackTrace();
-		} finally {
-			try {
-				conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return result;
-	}
-
-
-	public Book getItem(int id){
+	public Book getItem(int id) {
 		Book book = new Book();
 		conn = DatabaseManager.getConnection();
-		String sql = "SELECT * FROM Book WHERE idBook = ?";			
+		String sql = "SELECT * FROM Book WHERE idBook = ?";
 		try {
 			pst = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
 			pst.setInt(1, id);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				book = new Book(
-						rs.getInt("idBook"), 				
-						rs.getString("name"),			
-						rs.getDate("dateAdded"));
+				book = new Book(rs.getInt("idBook"), rs.getString("name"), rs.getDate("dateAdded"));
 			}
 			rs.close();
 			pst.close();
@@ -167,42 +125,17 @@ public class BookDAO {
 		}
 		return book;
 	}
-public int addItem(Book book) {										
-	conn = DatabaseManager.getConnection();
-	String sql="INSERT INTO Book(name, dateAdded) VALUE(?,?)";			
-	int kq=0;
-	try {
-		pst = conn.prepareStatement(sql);
-		pst.setString(1, book.getName());
-		pst.setDate(2, (Date) book.getDateAdded());
-		kq = pst.executeUpdate();
-		
-		pst.close();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	} finally {
-		try {
-			conn.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
-	return kq;
-	}
 
 	public int editItem(Book book) {
 		conn = DatabaseManager.getConnection();
-		String sql ="UPDATE Book SET name=? WHERE idBook =?";			
+		String sql = "UPDATE Book SET name=? WHERE idBook =?";
 		int kq = 0;
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, book.getName());
 			pst.setInt(2, book.getIdBook());
 			kq = pst.executeUpdate();
-			
+
 			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -216,15 +149,41 @@ public int addItem(Book book) {
 		return kq;
 	}
 
-	public int deleteItem(int idBook) {								
+	public int addItem(Book book) {
 		conn = DatabaseManager.getConnection();
-		String sql = "DELETE FROM Book WHERE idBook=?";		
-		int kq =0;
+		String sql = "INSERT INTO Book(name, dateAdded) VALUE(?,?)";
+		int kq = 0;
 		try {
-			pst= conn.prepareStatement(sql);
-			pst.setInt(1, idBook);									
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, book.getName());
+			pst.setDate(2, (Date) book.getDateAdded());
 			kq = pst.executeUpdate();
-			
+
+			pst.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return kq;
+	}
+
+	public int deleteItem(int idBook) {
+		conn = DatabaseManager.getConnection();
+		String sql = "DELETE FROM Book WHERE idBook=?";
+		int kq = 0;
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setInt(1, idBook);
+			kq = pst.executeUpdate();
+
 			pst.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -235,7 +194,7 @@ public int addItem(Book book) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return kq;
 	}
 }
