@@ -7,21 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.bean.User;
-import model.dao.UserDAO;
+import model.dao.BookDAO;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class DeleteBookController
  */
-@WebServlet("/LoginController")
-public class LoginController extends HttpServlet {
+@WebServlet("/DeleteBookController")
+public class DeleteBookController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDAO userDAO = new UserDAO();
+	private BookDAO bookDAO = new BookDAO();
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public DeleteBookController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,26 +29,22 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html");
-		response.setCharacterEncoding("UTF-8");
-		
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		User user = userDAO.getItem(username, password);
-		System.out.println(user != null);
-		if(user != null) {
-			request.getSession().setAttribute("user", user);
-			response.sendRedirect("index.jsp");
-		}
+		doPost(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		int idBook = Integer.parseInt(request.getParameter("id"));
+		
+		System.out.println("Delete book controller");
+		int kq = bookDAO.deleteItem(idBook);
+		if (kq > 0) {
+			response.sendRedirect(request.getContextPath() + "/bookList");
+		} else {
+			response.sendRedirect(request.getContextPath() + "/deleteBook");
+		}
 	}
 
 }

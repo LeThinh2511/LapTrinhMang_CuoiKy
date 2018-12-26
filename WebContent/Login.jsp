@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Đăng nhập</title>
+<title>Log In</title>
 <link rel="stylesheet" href="templates/css/bootstrap.min.css">
 <link rel="stylesheet" href="templates/css/page.css">
 </head>
@@ -12,12 +12,12 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-centered login-form border-primary">
-				<form action="dangNhap" method="POST">
-					<h1 class="bg-dark text-white">Đăng nhập</h1>
+				<form action="<%=request.getContextPath() %>/login" method="POST">
+					<h1 class="bg-dark text-white">Log In</h1>
 					<fieldset>
 						<legend></legend>
 						<div class="form-group">
-							<label for="username">Tên đăng nhập</label> <input
+							<label for="username">User name</label> <input
 								type="text" class="form-control" id="username" name="username"
 								aria-describedby="emailHelp">
 						</div>
@@ -25,7 +25,7 @@
 							<label for="password">Password</label> <input
 								type="password" class="form-control" id="password" name="password">
 						</div>
-						<button type="submit" class="btn btn-dark btn-login">Đăng nhập</button>
+						<button type="submit" class="btn btn-dark btn-login">Log In</button>
 					</fieldset>
 				</form>
 			</div>

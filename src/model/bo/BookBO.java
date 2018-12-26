@@ -1,5 +1,5 @@
 package model.bo;
 
-public class BaiHatBO {
+public class BookBO {
 
 }

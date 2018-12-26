@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Quản lý bài hát</title>
+<title>Library</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="stylesheet" href="templates/css/bootstrap.min.css">
@@ -14,9 +14,7 @@
 <body>
 	<%
 		User user = (User) session.getAttribute("user");
-	System.out.println("user check in index file");
 		if (user == null) {
-			System.out.println("user null in index file");
 			response.sendRedirect("Login.jsp");
 		}
 	%>
@@ -24,7 +22,7 @@
 		<jsp:include page="templates/inc/headerbar.jsp"></jsp:include>
 		<div class="page">
 			<ol class="breadcrumb">
-				<li class="breadcrumb-item"><a style="color: black;" class="nav-link" href="<%=request.getContextPath() %>/bai-hat">Danh sách bài hát</a></li>
+				<li class="breadcrumb-item"><a style="color: black;" class="nav-link" href="<%=request.getContextPath() %>/bookList">Book list</a></li>
 			</ol>
 		</div>
 		

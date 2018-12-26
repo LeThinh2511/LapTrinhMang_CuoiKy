@@ -7,7 +7,47 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/dangNhap</url-pattern>
+    <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>controller.LogoutController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>BookListServlet</servlet-name>
+    <servlet-class>controller.BookListController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BookListServlet</servlet-name>
+    <url-pattern>/bookList</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>AddNewBookServlet</servlet-name>
+    <servlet-class>controller.AddNewBookController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddNewBookServlet</servlet-name>
+    <url-pattern>/addNewBook</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ModifyBookServlet</servlet-name>
+    <servlet-class>controller.ModifyBookController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifyBookServlet</servlet-name>
+    <url-pattern>/modifyBook</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DeleteBookServlet</servlet-name>
+    <servlet-class>controller.DeleteBookController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteBookServlet</servlet-name>
+    <url-pattern>/deleteBook</url-pattern>
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>Login.jsp</welcome-file>
