@@ -23,8 +23,12 @@
 			<fieldset>
 				<legend>ADD NEW BOOK</legend>
 				<span class="form-group">
-					<input type="text" placeholder="Enter book name..."
+					<input class="form-control" type="text" placeholder="Enter book name..."
 						name="name" />
+				</span>
+				<span class="form-group">
+					<input class="form-control" type="text" placeholder="Enter author..."
+						name="author" />
 				</span>
 				<button type="submit" class="btn btn-primary">ADD</button>
 			</fieldset>

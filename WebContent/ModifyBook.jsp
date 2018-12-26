@@ -27,9 +27,14 @@
 			<fieldset>
 				<legend>CHANGE BOOK NAME</legend>
 				<span class="form-group">
-					<label for="name">Enter new name: </label> 
-					<input type="hidden" name="idBook" value="<%=book.getIdBook()%>">
-					<input type="text" name="name" value="<%=book.getName()%>"> 
+					<label for="name">Enter book's name: </label> 
+					<input class="form-control" type="hidden" name="idBook" value="<%=book.getIdBook()%>">
+					<input class="form-control" type="text" name="name" value="<%=book.getName()%>"> 
+				</span>
+				<span class="form-group">
+					<label for="name">Enter author's name: </label> 
+					<input class="form-control" type="hidden" name="idBook" value="<%=book.getIdBook()%>">
+					<input class="form-control" type="text" name="name" value="<%=book.getAuthor()%>"> 
 				</span>
 				<button type="submit" class="btn btn-primary">Save</button>
 			</fieldset>

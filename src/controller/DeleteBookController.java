@@ -37,8 +37,8 @@ public class DeleteBookController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idBook = Integer.parseInt(request.getParameter("id"));
-		int kq = bookDAO.deleteItem(idBook);
-		if (kq > 0) {
+		int count = bookDAO.deleteItem(idBook);
+		if (count>0) {
 			response.sendRedirect(request.getContextPath() + "/bookList");
 		}
 	}

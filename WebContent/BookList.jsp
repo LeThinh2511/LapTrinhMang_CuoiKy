@@ -53,9 +53,10 @@
 				<thead class="thead-light">
 					<tr>
 						<th scope="col">#</th>
-						<th scope="col">Book name</th>
+						<th scope="col">Name</th>
+						<th scope="col">Author</th>
 						<th scope="col">Date added</th>
-						<th scope="col">Modify</th>
+						<th scope="col">Edit</th>
 						<th scope="col">ID</th>
 					</tr>
 				</thead>
@@ -63,14 +64,16 @@
 					<%
 						for (int i = 0; i < books.size(); i++) {
 							Book book = books.get(i);
+							System.out.println(book.getAuthor());
 					%>
 					<tr class="table-dark">
 						<td><%=i + 1%></td>
 						<td><%=book.getName()%></td>
+						<td><%=book.getAuthor()%></td>
 						<td><%=book.getDateAdded()%></td>
 						<td><a
 							href="<%=request.getContextPath()%>/modifyBook?id=<%=book.getIdBook()%>"
-							class="btn btn-info  btn-primary sbold uppercase"> Modify </a> <a
+							class="btn btn-info  btn-primary sbold uppercase"> Edit </a> <a
 							href="javascript:void(0)" data-id=<%=book.getIdBook()%>
 							class="btn btn-danger btn-outline sbold uppercase deleteBook">
 								Delete </a></td>

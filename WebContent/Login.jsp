@@ -16,7 +16,7 @@
 					<fieldset>
 						<legend></legend>
 						<div class="form-group">
-							<label for="username">User name</label> <input type="text"
+							<label for="username">Email</label> <input type="text"
 								class="form-control" id="username" name="username"
 								aria-describedby="emailHelp">
 						</div>
@@ -26,7 +26,8 @@
 						</div>
 						<div class="col-sm-12">
 							<div class="text-center">
-								<button type="submit" class="btn btn-primary btn-login">Log In</button>
+								<button type="submit" class="btn btn-primary btn-login">Log
+									In</button>
 							</div>
 						</div>
 					</fieldset>

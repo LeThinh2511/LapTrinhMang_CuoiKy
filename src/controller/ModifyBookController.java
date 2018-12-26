@@ -35,8 +35,8 @@ public class ModifyBookController extends HttpServlet {
 			return;
 		}
 		if (request.getParameter("id") != null) {
-			int id = Integer.parseInt(request.getParameter("id"));
-			Book book = bookDAO.getItem(id);
+			int idBook = Integer.parseInt(request.getParameter("id"));
+			Book book = bookDAO.getBook(idBook);
 			request.setAttribute("book", book);
 			request.getRequestDispatcher("ModifyBook.jsp").forward(request, response);
 		}
@@ -50,10 +50,11 @@ public class ModifyBookController extends HttpServlet {
 		response.setContentType("html");
 		int idBook = Integer.parseInt(request.getParameter("idBook"));
 		String name = request.getParameter("name");
-		Book book = bookDAO.getItem(idBook);
+		String author = request.getParameter("author");
+		Book book = bookDAO.getBook(idBook);
 		if (book != null) {
 			book.setName(name);
-			bookDAO.editItem(book);
+			bookDAO.editBook(book);
 			response.sendRedirect(request.getContextPath() + "/bookList");
 		}
 	}

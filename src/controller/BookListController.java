@@ -41,7 +41,7 @@ public class BookListController extends HttpServlet {
 			key = "";
 		}
 		int totals = bookDAO.countTotal(key);
-		ArrayList<Book> books = bookDAO.getList(key);
+		ArrayList<Book> books = bookDAO.getBooks(key);
 		request.setAttribute("totals", String.valueOf(totals));
 		request.setAttribute("books", books);
 		request.getRequestDispatcher("BookList.jsp").forward(request, response);

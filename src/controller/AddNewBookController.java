@@ -46,10 +46,12 @@ public class AddNewBookController extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("html");
 		String name = request.getParameter("name");
+		String author = request.getParameter("author");
 		Book newBook = new Book();
 		newBook.setName(name);
+		newBook.setAuthor(author);
 		newBook.setDateAdded(new Date(System.currentTimeMillis()));
-		bookDAO.addItem(newBook);
+		bookDAO.addBook(newBook);
 		response.sendRedirect(request.getContextPath() + "/bookList");
 	}
 

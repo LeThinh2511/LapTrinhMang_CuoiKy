@@ -47,16 +47,16 @@ public class BookDAO {
 		return result;
 	}
 
-	public ArrayList<Book> getList() {
-		ArrayList<Book> result = new ArrayList<>();
+	public ArrayList<Book> getAllBooks() {
+		ArrayList<Book> books = new ArrayList<>();
 		conn = DatabaseManager.getConnection();
 		String sql = "SELECT * FROM Book";
 		try {
 			st = conn.createStatement();
 			rs = st.executeQuery(sql);
 			while (rs.next()) {
-				Book book = new Book(rs.getInt("idBook"), rs.getString("name"), rs.getDate("dateAdded"));
-				result.add(book);
+				Book book = new Book(rs.getInt("idBook"), rs.getString("name"), rs.getDate("dateAdded"), rs.getString("author"));
+				books.add(book);
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -70,11 +70,11 @@ public class BookDAO {
 				e.printStackTrace();
 			}
 		}
-		return result;
+		return books;
 	}
 
-	public ArrayList<Book> getList(String key) {
-		ArrayList<Book> result = new ArrayList<>();
+	public ArrayList<Book> getBooks(String key) {
+		ArrayList<Book> books = new ArrayList<>();
 		conn = DatabaseManager.getConnection();
 		String sql = "SELECT * FROM Book WHERE name like ?";
 		try {
@@ -82,8 +82,8 @@ public class BookDAO {
 			pst.setString(1, "%" + key + "%");
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				Book book = new Book(rs.getInt("idBook"), rs.getString("name"), rs.getDate("dateAdded"));
-				result.add(book);
+				Book book = new Book(rs.getInt("idBook"), rs.getString("name"), rs.getDate("dateAdded"), rs.getString("author"));
+				books.add(book);
 			}
 			rs.close();
 			pst.close();
@@ -97,19 +97,19 @@ public class BookDAO {
 				e.printStackTrace();
 			}
 		}
-		return result;
+		return books;
 	}
 
-	public Book getItem(int id) {
+	public Book getBook(int idBook) {
 		Book book = new Book();
 		conn = DatabaseManager.getConnection();
 		String sql = "SELECT * FROM Book WHERE idBook = ?";
 		try {
 			pst = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-			pst.setInt(1, id);
+			pst.setInt(1, idBook);
 			rs = pst.executeQuery();
 			while (rs.next()) {
-				book = new Book(rs.getInt("idBook"), rs.getString("name"), rs.getDate("dateAdded"));
+				book = new Book(rs.getInt("idBook"), rs.getString("name"), rs.getDate("dateAdded"), rs.getString("author"));
 			}
 			rs.close();
 			pst.close();
@@ -126,15 +126,16 @@ public class BookDAO {
 		return book;
 	}
 
-	public int editItem(Book book) {
+	public int editBook(Book book) {
 		conn = DatabaseManager.getConnection();
-		String sql = "UPDATE Book SET name=? WHERE idBook =?";
-		int kq = 0;
+		String sql = "UPDATE Book SET name=?, author=? WHERE idBook =?";
+		int count = 0;
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, book.getName());
-			pst.setInt(2, book.getIdBook());
-			kq = pst.executeUpdate();
+			pst.setString(2, book.getAuthor());
+			pst.setInt(3, book.getIdBook());
+			count = pst.executeUpdate();
 
 			pst.close();
 		} catch (SQLException e) {
@@ -146,18 +147,19 @@ public class BookDAO {
 				e.printStackTrace();
 			}
 		}
-		return kq;
+		return count;
 	}
 
-	public int addItem(Book book) {
+	public int addBook(Book book) {
 		conn = DatabaseManager.getConnection();
-		String sql = "INSERT INTO Book(name, dateAdded) VALUE(?,?)";
-		int kq = 0;
+		String sql = "INSERT INTO Book(name, dateAdded, author) VALUE(?,?,?)";
+		int count = 0;
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setString(1, book.getName());
 			pst.setDate(2, (Date) book.getDateAdded());
-			kq = pst.executeUpdate();
+			pst.setString(3, book.getAuthor());
+			count = pst.executeUpdate();
 
 			pst.close();
 		} catch (SQLException e) {
@@ -172,17 +174,17 @@ public class BookDAO {
 			}
 
 		}
-		return kq;
+		return count;
 	}
 
 	public int deleteItem(int idBook) {
 		conn = DatabaseManager.getConnection();
 		String sql = "DELETE FROM Book WHERE idBook=?";
-		int kq = 0;
+		int count = 0;
 		try {
 			pst = conn.prepareStatement(sql);
 			pst.setInt(1, idBook);
-			kq = pst.executeUpdate();
+			count = pst.executeUpdate();
 
 			pst.close();
 		} catch (SQLException e) {
@@ -195,6 +197,6 @@ public class BookDAO {
 			}
 		}
 
-		return kq;
+		return count;
 	}
 }

@@ -32,9 +32,9 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		String username = request.getParameter("username");
+		String userName = request.getParameter("username");
 		String password = request.getParameter("password");
-		User user = userDAO.getItem(username, password);
+		User user = userDAO.getUser(userName, password);
 		if(user != null) {
 			request.getSession().setAttribute("user", user);
 			request.getRequestDispatcher("/bookList").forward(request, response);

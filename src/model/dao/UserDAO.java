@@ -9,7 +9,7 @@ import library.DatabaseManager;
 import model.bean.User;
 
 public class UserDAO {
-	public User getItem(String userName, String password) {
+	public User getUser(String userName, String password) {
 		Connection connection = DatabaseManager.getConnection();
 		String sql = "SELECT * FROM user WHERE email=? AND password=?";
 		PreparedStatement ps;
@@ -20,17 +20,17 @@ public class UserDAO {
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				User item = new User();
-				item.setId(rs.getLong("idUser"));
-				item.setEmail(rs.getString("email"));
-				item.setPass(rs.getString("password"));
+				User user = new User();
+				user.setId(rs.getLong("idUser"));
+				user.setEmail(rs.getString("email"));
+				user.setPass(rs.getString("password"));
 				try {
 					ps.close();
 					connection.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				return item;
+				return user;
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -39,27 +39,27 @@ public class UserDAO {
 		return null;
 	}
 	
-	public User getItem(long id) {
+	public User getUser(long idUser) {
 		Connection connection = DatabaseManager.getConnection();
 		String sql = "SELECT * FROM user WHERE idUser=?";
 		PreparedStatement ps;
 		try {
 			ps = connection.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
-			ps.setLong(1, id);
+			ps.setLong(1, idUser);
 
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				User item = new User();
-				item.setId(rs.getLong("idUser"));
-				item.setEmail(rs.getString("email"));
-				item.setPass(rs.getString("password"));
+				User user = new User();
+				user.setId(rs.getLong("idUser"));
+				user.setEmail(rs.getString("email"));
+				user.setPass(rs.getString("password"));
 				try {
 					ps.close();
 					connection.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				return item;
+				return user;
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
