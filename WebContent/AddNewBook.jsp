@@ -21,13 +21,12 @@
 		</div>
 		<form action="<%=request.getContextPath()%>/addNewBook" method="post">
 			<fieldset>
-				<legend>Add new Book</legend>
-				<div class="form-group">
-					<label for="ten">Book name</label> 
-					<input type="text"
-						class="form-control" name="name" />
-				</div>
-				<button type="submit" class="btn btn-dark">Save</button>
+				<legend>ADD NEW BOOK</legend>
+				<span class="form-group">
+					<input type="text" placeholder="Enter book name..."
+						name="name" />
+				</span>
+				<button type="submit" class="btn btn-primary">ADD</button>
 			</fieldset>
 		</form>
 	</div>

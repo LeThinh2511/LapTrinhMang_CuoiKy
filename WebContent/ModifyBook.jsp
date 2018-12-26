@@ -12,7 +12,6 @@
 </head>
 <body>
 	<%
-	System.out.println("modify book jsp");
 		Book book = (Book) request.getAttribute("book");
 	%>
 
@@ -26,15 +25,13 @@
 		</div>
 		<form action="<%=request.getContextPath()%>/modifyBook" method="post">
 			<fieldset>
-				New name
-				<div class="form-group">
-					<label for="name">Book name</label> 
+				<legend>CHANGE BOOK NAME</legend>
+				<span class="form-group">
+					<label for="name">Enter new name: </label> 
 					<input type="hidden" name="idBook" value="<%=book.getIdBook()%>">
-					<input type="text"
-						class="form-control" id="ten" name="name"
-						value="<%=book.getName()%>"> 
-				</div>
-				<button type="submit" class="btn btn-dark">Save</button>
+					<input type="text" name="name" value="<%=book.getName()%>"> 
+				</span>
+				<button type="submit" class="btn btn-primary">Save</button>
 			</fieldset>
 		</form>
 	</div>

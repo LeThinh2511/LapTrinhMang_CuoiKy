@@ -1,5 +1,5 @@
 <%@page import="model.bean.Book"%>
-<%@page import="model.bean.User" %>
+<%@page import="model.bean.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -33,7 +33,6 @@
 		if (request.getAttribute("totals") != null) {
 			totals = Integer.parseInt((String) request.getAttribute("totals"));
 		}
-		String key = request.getParameter("key") != null ? request.getParameter("key") : "";
 	%>
 	<div class="container">
 		<jsp:include page="templates/inc/headerbar.jsp"></jsp:include>
@@ -48,51 +47,34 @@
 		<div class="row">
 			<div class="col-lg-4 col-md-5 col-sm-6"></div>
 		</div>
-		<div class="row mt-2">
-
-			<div class="col-md-6 col-6 col-sm-6">
-				<form class="input-group" method="get"
-					action="<%=request.getContextPath()%>/bookList">
-					<input class="form-control" type="text"
-						placeholder="Enter book name..." value="<%=key%>" name="key">
-					<span class="input-group-btn mr-10">
-						<button class="btn btn-dark" type="submit">Search</button>
-					</span>
-				</form>
-			</div>
-			<div class="col-md-6 col-6 col-sm-6">
-				<div class="input-group">
-					<span class="input-group-btn mr-10"> <a class="btn btn-dark"
-						href="<%=request.getContextPath()%>/addNewBook">Add new Book</a>
-					</span>
-				</div>
-			</div>
-
-		</div>
 		<div class="mt-2">
-			<table class="table table-borderless">
-				<thead class="thead-dark">
+			<table class="table table-hover">
+				<caption>List of Books</caption>
+				<thead class="thead-light">
 					<tr>
-						<th scope="col">ID</th>
+						<th scope="col">#</th>
 						<th scope="col">Book name</th>
 						<th scope="col">Date added</th>
 						<th scope="col">Modify</th>
+						<th scope="col">ID</th>
 					</tr>
 				</thead>
 				<tbody>
 					<%
-						for (Book book : books) {
+						for (int i = 0; i < books.size(); i++) {
+							Book book = books.get(i);
 					%>
-					<tr class="table-light">
-						<td><%=book.getIdBook()%></td>
+					<tr class="table-dark">
+						<td><%=i + 1%></td>
 						<td><%=book.getName()%></td>
 						<td><%=book.getDateAdded()%></td>
 						<td><a
 							href="<%=request.getContextPath()%>/modifyBook?id=<%=book.getIdBook()%>"
-							class="btn btn-info  btn-dark sbold uppercase"> Modify </a> <a
+							class="btn btn-info  btn-primary sbold uppercase"> Modify </a> <a
 							href="javascript:void(0)" data-id=<%=book.getIdBook()%>
 							class="btn btn-danger btn-outline sbold uppercase deleteBook">
 								Delete </a></td>
+						<td><%=book.getIdBook()%></td>
 
 					</tr>
 					<%
